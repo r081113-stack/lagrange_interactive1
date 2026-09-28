@@ -25,8 +25,8 @@ input[type=range]{flex:1;min-width:160px}
 <label><input id="nv" type="checkbox" checked> 等高線上の法線ベクトル(∇f の向き)を表示</label>
 <div id="msg"></div>
 <div style="color:var(--mut);font-size:.9rem">
-<span class="b">青</span>: ∇f(等高線に垂直) ／ <span class="r">赤</span>: ∇g(束縛曲線に垂直)。
-点を動かし、2本の矢印が平行になる位置(=束縛曲線が等高線に接する点)を探してみましょう。</div>
+<span class="b">青</span>: (fx,fy)(等高線に垂直) ／ <span class="r">赤</span>: (gx,gy)(束縛曲線に垂直)。
+点を動かし，2本の矢印が平行になる位置(=束縛曲線が等高線に接する点)を探しみよう．</div>
 </div>
 <script>
 const NS="http://www.w3.org/2000/svg",S=document.getElementById("s"),X=x=>50+x*90,Y=y=>570-y*90;
@@ -63,7 +63,7 @@ el("text",{x:470,y:Y(yc(5))-22,fill:css("red"),"font-size":18,"font-style":"ital
 const gF=el("line",{stroke:css("blue"),"stroke-width":3.5,"marker-end":"url(#mblue)"});
 const gG=el("line",{stroke:css("red"),"stroke-width":3.5,"marker-end":"url(#mred)"});
 const tF=el("text",{fill:css("blue"),"font-size":18}),tG=el("text",{fill:css("red"),"font-size":18});
-tF.textContent="∇f";tG.textContent="∇g";
+tF.textContent="(fx,fy)";tG.textContent="(gx,gy)";
 const dot=el("circle",{r:6,fill:"currentColor"});
 function upd(){
  const x=+t.value,y=yc(x),[a,b]=grad(x,y),[c,e]=gg(x);
@@ -75,7 +75,7 @@ function upd(){
  tF.setAttribute("x",fx2-38);tF.setAttribute("y",fy2+4);tG.setAttribute("x",gx2+6);tG.setAttribute("y",gy2-4);
  const cross=(a*e-b*c)/(Lf*Lg),ang=Math.asin(Math.max(-1,Math.min(1,cross)))*180/Math.PI;
  const m=document.getElementById("msg");
- m.textContent=Math.abs(ang)<1.5?`∇f ∥ ∇g（角度 ≈ ${Math.abs(ang).toFixed(1)}°）→ 接点：∇f = λ∇g が成り立つ`:`∇f と ∇g のなす角 ≈ ${Math.abs(ang).toFixed(1)}°（平行ではない）`;
+ m.textContent=Math.abs(ang)<1.5?`(fx,fy) ∥ (gx,gy)（角度 ≈ ${Math.abs(ang).toFixed(1)}°）→ 接点：(fx,fy) = λ(gx,gy) が成り立つ`:`(fx,fy) と (gx,gy) のなす角 ≈ ${Math.abs(ang).toFixed(1)}°（平行ではない）`;
  m.style.color=Math.abs(ang)<1.5?"var(--red)":"var(--fg)";
 }
 t.oninput=upd;upd();
